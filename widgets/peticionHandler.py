@@ -80,7 +80,7 @@ class PeticionHandler(QObject):
         cliente_socket = None
         try:
             cliente_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            cliente_socket.settimeout(5)
+            cliente_socket.settimeout(100)
             cliente_socket.connect((ip, puerto))
 
             # Esperar respuesta

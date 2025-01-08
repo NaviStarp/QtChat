@@ -9,6 +9,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QWidget, Q
 from PySide6.QtCore import QFile, QTextStream, Signal, QObject
 from ui.PaginaPrincipal import Ui_MainWindow
 from ui.PeticionEntrante import Ui_IncomingRequest
+from widgets.VentanaChat import VentanaChat
 from widgets.chats_recientes import load_recent_chats
 from widgets.peticionHandler import PeticionHandler
 
@@ -18,7 +19,6 @@ DEFAULT_PORT = 12345
 
 class MainWindow(QMainWindow):
     respuesta_recibida = Signal(str, str)  # Señal para manejar respuestas de conexión
-
     def __init__(self):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
@@ -109,7 +109,8 @@ class MainWindow(QMainWindow):
             self._cancelar_solicitud()
 
     def _conectar_chat(self, Clientesocket:socket.socket):
-        QMessageBox.information(self,"Conexion establecida!",f"{Clientesocket.getsockname()[0]}:{Clientesocket.getsockname()[1]}")
+        chat_window = VentanaChat(Clientesocket)
+        chat_window.show()
         self.ui.pushButton_2.setText("Conectar")
         self.ui.pushButton_2.setEnabled(True)
 
