@@ -1,0 +1,138 @@
+/* Variables para el tema claro */
+[data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --text-primary: #2d3436;
+    --text-secondary: #636e72;
+    --accent-color: #0984e3;
+    --border-color: #dfe6e9;
+    --hover-color: #74b9ff;
+    --button-bg: #0984e3;
+    --button-text: #ffffff;
+    --input-bg: #ffffff;
+    --list-hover: #f1f2f6;
+}
+
+/* Variables para el tema oscuro */
+[data-theme="dark"] {
+    --bg-primary: #2d3436;
+    --bg-secondary: #222831;
+    --text-primary: #ffffff;
+    --text-secondary: #b2bec3;
+    --accent-color: #74b9ff;
+    --border-color: #4a4d50;
+    --hover-color: #0984e3;
+    --button-bg: #74b9ff;
+    --button-text: #2d3436;
+    --input-bg: #393e46;
+    --list-hover: #393e46;
+}
+
+/* Estilos generales */
+QMainWindow {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Header y título */
+QLabel#label_4 {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--accent-color);
+    padding: 10px;
+}
+
+/* Botones */
+QPushButton {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 500;
+    min-width: 100px;
+}
+
+QPushButton:hover {
+    background-color: var(--hover-color);
+}
+
+QPushButton:pressed {
+    background-color: var(--accent-color);
+}
+
+/* Campos de texto */
+QTextEdit, QLineEdit {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px;
+}
+
+QTextEdit:focus, QLineEdit:focus {
+    border: 2px solid var(--accent-color);
+}
+
+/* Labels */
+QLabel {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Listas */
+QListWidget {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px;
+}
+
+QListWidget::item {
+    color: var(--text-primary);
+    padding: 8px;
+    border-radius: 4px;
+}
+
+QListWidget::item:hover {
+    background-color: var(--list-hover);
+}
+
+QListWidget::item:selected {
+    background-color: var(--accent-color);
+    color: var(--button-text);
+}
+
+/* Checkbox personalizado */
+QCheckBox {
+    spacing: 8px;
+}
+
+QCheckBox::indicator {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    border: 2px solid var(--accent-color);
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: var(--bg-primary);
+}
+
+QCheckBox::indicator:checked {
+    background-color: var(--accent-color);
+}
+
+/* Espaciadores y márgenes */
+QSpacerItem {
+    margin: 10px;
+}
+
+/* Ajustes específicos */
+#PaginaPrincipal, #page_2 {
+    margin: 20px;
+}
+
+#FramePrincipal {
+    background-color: var(--bg-primary);
+}

@@ -1,0 +1,14 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="styles">
+        <file>styles/styles.qss</file> <!-- Ajuste aquí -->
+    </qresource>
+    <qresource prefix="res">
+        <!-- Iconos para modo claro -->
+        <file>res/Modo_oscuro.svg</file>
+        
+        <!-- Iconos para modo oscuro -->
+        <file>res/Modo_claro.svg</file>
+    </qresource>
+</RCC>
+

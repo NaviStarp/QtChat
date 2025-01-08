@@ -1,0 +1,166 @@
+QMainWindow {
+    background-color: #1a1a1a;
+}
+
+QDialog {
+    background-color: #1a1a1a;
+}
+
+QTextEdit {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border: 1px solid #404040;
+    border-radius: 6px;
+    selection-background-color: #0a84ff;
+    selection-color: #ffffff;
+}
+
+QPushButton {
+    background-color: #0a84ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    padding: 8px 16px;
+    min-height: 20px;
+}
+
+QPushButton:hover {
+    background-color: #409cff;
+}
+
+QPushButton:pressed {
+    background-color: #0060c0;
+}
+
+QPushButton:disabled {
+    background-color: #404040;
+    color: #808080;
+}
+
+QLabel {
+    color: #e0e0e0;
+    font-size: 14px;
+}
+
+QListWidget {
+    background-color: #2c2c2c;
+    border: 1px solid #404040;
+    border-radius: 6px;
+    padding: 4px;
+    color: #e0e0e0;
+}
+
+QListWidget::item {
+    background-color: #2c2c2c;
+    border-radius: 4px;
+}
+
+QListWidget::item:selected {
+    background-color: #404040;
+    color: #0a84ff;
+}
+
+QListWidget::item:hover {
+    background-color: #363636;
+}
+
+QLineEdit {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border: 1px solid #404040;
+    border-radius: 6px;
+    padding: 8px;
+    selection-background-color: #0a84ff;
+}
+
+QCheckBox {
+    color: #e0e0e0;
+    spacing: 8px;
+}
+
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #0a84ff;
+    border-radius: 4px;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #0a84ff;
+    image: url(check.png);
+}
+
+QCheckBox::indicator:unchecked:hover {
+    border-color: #409cff;
+}
+
+/* Estilo específico para el chat reciente */
+#RecentChat {
+    background-color: #2c2c2c;
+    border: 1px solid #404040;
+    border-radius: 8px;
+    margin: 4px;
+}
+
+#RecentChat QLabel {
+    color: #e0e0e0;
+}
+
+#RecentChat #ipLabel {
+    font-weight: bold;
+    color: #e0e0e0;
+}
+
+#RecentChat #lastConnection {
+    color: #808080;
+    font-size: 12px;
+}
+
+#RecentChat QPushButton {
+    background-color: #0a84ff;
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-size: 12px;
+}
+
+/* Estilo para la ventana de chat */
+#ListaMensajes {
+    background-color: #2c2c2c;
+    border: 1px solid #404040;
+}
+
+#EnviarTexto {
+    background-color: #2c2c2c;
+    border: 1px solid #404040;
+    border-radius: 20px;
+    padding: 8px 16px;
+    margin-right: 8px;
+    color: #e0e0e0;
+}
+
+#EnviarBoton {
+    background-color: #0a84ff;
+    border-radius: 20px;
+    min-width: 80px;
+}
+
+/* Estilo para el menú de ajustes */
+#Modo_Oscuro::indicator {
+    width: 40px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #404040;
+}
+
+#Modo_Oscuro::indicator:checked {
+    background-color: #0a84ff;
+}
+
+#PuertoPersonalizado {
+    padding: 8px;
+    background-color: #2c2c2c;
+    border: 1px solid #404040;
+    border-radius: 6px;
+    color: #e0e0e0;
+}
