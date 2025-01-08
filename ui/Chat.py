@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QListWidget,
-    QListWidgetItem, QMainWindow, QPushButton, QSizePolicy,
-    QSpacerItem, QTextEdit, QVBoxLayout, QWidget)
+                               QListWidgetItem, QMainWindow, QPushButton, QSizePolicy,
+                               QSpacerItem, QTextEdit, QVBoxLayout, QWidget, QLineEdit)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -54,7 +54,7 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.EnviarTexto = QTextEdit(self.centralwidget)
+        self.EnviarTexto = QLineEdit(self.centralwidget)
         self.EnviarTexto.setObjectName(u"EnviarTexto")
         self.EnviarTexto.setMaximumSize(QSize(16777215, 35))
 

@@ -1,5 +1,50 @@
 [[chats]]
 ip = "127.0.0.1"
+port = "12386"
+last_connection = "Ahora"
+
+[[chats]]
+ip = "127.0.0.1"
+port = "12385"
+last_connection = "Ahora"
+
+[[chats]]
+ip = "127.0.0.1"
+port = "12384"
+last_connection = "Ahora"
+
+[[chats]]
+ip = "127.0.0.1"
+port = "12384"
+last_connection = "Ahora"
+
+[[chats]]
+ip = "127.0.0.1"
+port = "12383"
+last_connection = "Ahora"
+
+[[chats]]
+ip = "127.0.0.1"
+port = "12382"
+last_connection = "Ahora"
+
+[[chats]]
+ip = "127.0.0.1"
+port = "12380"
+last_connection = "Ahora"
+
+[[chats]]
+ip = "127.0.0.1"
+port = "12378"
+last_connection = "Ahora"
+
+[[chats]]
+ip = "192.168.3.115"
+port = "12378"
+last_connection = "Ahora"
+
+[[chats]]
+ip = "127.0.0.1"
 port = "12381"
 last_connection = "Ahora"
 

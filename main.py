@@ -203,7 +203,7 @@ class MainWindow(QMainWindow):
                 toml.dump(chats, f)
 
             # Actualizar lista de chats recientes
-            load_recent_chats(self.ui.listWidget_2)
+            self.load_recent_chats(self.ui.listWidget_2)
 
         except Exception as e:
             print(f"Error al guardar chat: {e}")

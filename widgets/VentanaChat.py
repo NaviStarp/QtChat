@@ -1,5 +1,7 @@
 import os
 
+from PySide6 import QtGui, QtWidgets
+from PySide6.QtGui import QKeyEvent
 from PySide6.QtWidgets import QMainWindow, QWidget, QListWidgetItem
 from PySide6.QtCore import Qt, QDateTime, Signal, QObject, QMetaObject, QFile, QTextStream
 import socket
@@ -38,11 +40,12 @@ class VentanaChat(QMainWindow):
 
         # Conectar eventos
         self.ui.EnviarBoton.clicked.connect(self._handle_enviar)
-        self.ui.EnviarTexto.returnPressed = self._handle_enviar
-
+        self.ui.EnviarTexto.returnPressed.connect(self._handle_enviar)
         # Iniciar thread de escucha
         self.thread_recepcion = threading.Thread(target=self._escuchar_mensajes, daemon=True)
         self.thread_recepcion.start()
+
+
     def cargar_estilos(self):
         directorio_base = os.path.dirname(__file__)
         ruta_estilos = os.path.join(directorio_base, "..","styles", "styles.qss")
@@ -53,7 +56,7 @@ class VentanaChat(QMainWindow):
         stream = QTextStream(file)
         self.setStyleSheet(stream.readAll())
     def _handle_enviar(self):
-        mensaje = self.ui.EnviarTexto.toPlainText().strip()
+        mensaje = self.ui.EnviarTexto.text()
         if not mensaje:
             return
 
