@@ -22,8 +22,8 @@ Una aplicación de chat peer-to-peer desarrollada con Python y PySide6 que permi
 
 1. Clona el repositorio:
 ```bash
-git clone [url-del-repositorio]
-cd [directorio-del-proyecto]
+git clone https://github.com/NaviStarp/QtChat
+cd QtChat
 ```
 
 2. Crea y activa un entorno virtual:
