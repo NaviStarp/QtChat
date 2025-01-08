@@ -18,47 +18,54 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QSizePolicy,
     QSpacerItem, QVBoxLayout, QWidget)
 
+
 class Ui_SentMessage(object):
     def setupUi(self, SentMessage):
         if not SentMessage.objectName():
             SentMessage.setObjectName(u"SentMessage")
         SentMessage.resize(300, 80)
         SentMessage.setMinimumSize(QSize(300, 80))
+        SentMessage.setStyleSheet(u"""
+            QLabel {
+                border: none;
+                background: none;
+            }
+            QWidget:hover {
+                background: none;
+                border: none;
+            }
+        """)
+
         self.horizontalLayout = QHBoxLayout(SentMessage)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.leftSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
+        self.leftSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
         self.horizontalLayout.addItem(self.leftSpacer)
 
         self.messageLayout = QVBoxLayout()
         self.messageLayout.setObjectName(u"messageLayout")
+
         self.messageContent = QLabel(SentMessage)
         self.messageContent.setObjectName(u"messageContent")
-        self.messageContent.setStyleSheet(u"background-color: #DCF8C6; border-radius: 10px; padding: 8px;")
+        self.messageContent.setStyleSheet(
+            u"background-color: #1e4d2b; color: #ffffff; border-radius: 10px; padding: 8px;")
         self.messageContent.setWordWrap(True)
-        self.messageContent.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.messageContent.setAlignment(Qt.AlignRight | Qt.AlignTrailing | Qt.AlignVCenter)
 
         self.messageLayout.addWidget(self.messageContent)
 
         self.timeLabel = QLabel(SentMessage)
         self.timeLabel.setObjectName(u"timeLabel")
-        self.timeLabel.setStyleSheet(u"color: gray; font-size: 10px;")
-        self.timeLabel.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.timeLabel.setStyleSheet(u"color: #808080; font-size: 10px;")
+        self.timeLabel.setAlignment(Qt.AlignRight | Qt.AlignTrailing | Qt.AlignVCenter)
 
         self.messageLayout.addWidget(self.timeLabel)
-
-
         self.horizontalLayout.addLayout(self.messageLayout)
 
-
         self.retranslateUi(SentMessage)
-
         QMetaObject.connectSlotsByName(SentMessage)
-    # setupUi
 
     def retranslateUi(self, SentMessage):
         self.messageContent.setText(QCoreApplication.translate("SentMessage", u"Mensaje enviado", None))
         self.timeLabel.setText(QCoreApplication.translate("SentMessage", u"12:30", None))
-        pass
-    # retranslateUi
 

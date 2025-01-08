@@ -1,5 +1,7 @@
+import os
+
 from PySide6.QtWidgets import QMainWindow, QWidget, QListWidgetItem
-from PySide6.QtCore import Qt, QDateTime, Signal, QObject, QMetaObject
+from PySide6.QtCore import Qt, QDateTime, Signal, QObject, QMetaObject, QFile, QTextStream
 import socket
 import threading
 
@@ -20,6 +22,8 @@ class VentanaChat(QMainWindow):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.cargar_estilos()
+
 
         self.socket = socket_cliente
         self.running = True
@@ -39,7 +43,15 @@ class VentanaChat(QMainWindow):
         # Iniciar thread de escucha
         self.thread_recepcion = threading.Thread(target=self._escuchar_mensajes, daemon=True)
         self.thread_recepcion.start()
-
+    def cargar_estilos(self):
+        directorio_base = os.path.dirname(__file__)
+        ruta_estilos = os.path.join(directorio_base, "..","styles", "styles.qss")
+        file = QFile(ruta_estilos)
+        if not file.open(QFile.ReadOnly | QFile.Text):
+            print(f"Error al abrir el archivo de estilos: {ruta_estilos}")
+            return
+        stream = QTextStream(file)
+        self.setStyleSheet(stream.readAll())
     def _handle_enviar(self):
         mensaje = self.ui.EnviarTexto.toPlainText().strip()
         if not mensaje:
@@ -64,10 +76,12 @@ class VentanaChat(QMainWindow):
         ui_mensaje = Ui_SentMessage()
         ui_mensaje.setupUi(widget_mensaje)
 
+
         ui_mensaje.messageContent.setText(mensaje)
         ui_mensaje.timeLabel.setText(QDateTime.currentDateTime().toString('hh:mm'))
 
         item = QListWidgetItem(self.ui.ListaMensajes)
+        item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
         item.setSizeHint(widget_mensaje.sizeHint())
         self.ui.ListaMensajes.addItem(item)
         self.ui.ListaMensajes.setItemWidget(item, widget_mensaje)
@@ -82,6 +96,7 @@ class VentanaChat(QMainWindow):
         ui_mensaje.timeLabel.setText(QDateTime.currentDateTime().toString('hh:mm'))
 
         item = QListWidgetItem(self.ui.ListaMensajes)
+        item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
         item.setSizeHint(widget_mensaje.sizeHint())
         self.ui.ListaMensajes.addItem(item)
         self.ui.ListaMensajes.setItemWidget(item, widget_mensaje)

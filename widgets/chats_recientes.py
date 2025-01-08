@@ -2,16 +2,19 @@ import os
 
 from PySide6.QtCore import QFile, QTextStream
 from PySide6.QtGui import QPixmap, Qt
-from PySide6.QtWidgets import QWidget, QListWidgetItem
+from PySide6.QtWidgets import QWidget, QListWidgetItem, QMessageBox
+from pex import toml
+
 from ui.chatReciente import Ui_RecentChat
 import ui.resources_rc
 
 
 class RecentChatWidget(QWidget):
-    def __init__(self, ip, port, last_connection):
+    def __init__(self, ip, port, last_connection,main_window):
         super().__init__()
         self.ui = Ui_RecentChat()  # No pasamos argumentos aquí
         self.ui.setupUi(self)
+        self.main_window = main_window
         directorio_base = os.path.dirname(__file__)
 
         # Crear una ruta relativa para el archivo de estilos
@@ -37,35 +40,58 @@ class RecentChatWidget(QWidget):
         self.ui.connectButton.clicked.connect(lambda: self.connect_to_chat(ip, port))
 
     def connect_to_chat(self, ip, port):
-        print(f"Conectando a {ip}:{port}")
-        # Aquí irá tu lógica de conexión
+        try:
+            puerto_destino = int(port)
+            self.ui.connectButton.setText("Esperando")
+            self.ui.connectButton.setEnabled(False)
+
+            # Enviar solicitud de conexión
+            success, socket = self.main_window.request_handler.enviar_solicitud_conexion(ip, puerto_destino)
+            if success:
+                self.main_window._conectar_chat(socket)
+                self.ui.connectButton.setEnabled(True)
+                self.ui.connectButton.setText("Conectar")
+
+            else:
+                self.main_window._cancelar_solicitud()
+                self.ui.connectButton.setEnabled(True)
+                self.ui.connectButton.setText("Conectar")
+
+        except ValueError:
+            QMessageBox.warning(self, "Error", "Puerto inválido.")
 
 
-def load_recent_chats(list_widget):
-    """Función para cargar los chats recientes en cualquier QListWidget"""
-    # Ejemplo de datos de chats recientes
-    chats_recientes = [
-        {"ip": "192.168.1.1", "port": "8080", "last_connection": "Hace 2 horas"},
-        {"ip": "192.168.1.2", "port": "8081", "last_connection": "Hace 1 día"},
-        {"ip": "192.168.1.3", "port": "8082", "last_connection": "Hace 3 días"}
-    ]
+import os
+import toml
 
-    # Limpiar la lista actual
-    list_widget.clear()
+# def load_recent_chats(list_widget):
+#     """Función para cargar los chats recientes en cualquier QListWidget"""
+#     archivo_chats = "chats.toml"
+#
+#     # Verificar si el archivo existe
+#     if not os.path.exists(archivo_chats):
+#         print(f"Archivo {archivo_chats} no encontrado. Creando un archivo vacío...")
+#         with open(archivo_chats, "w") as f:
+#             toml.dump({"chats": []}, f)
+#
+#     try:
+#         # Intentar cargar el archivo
+#         chats_recientes = toml.load(archivo_chats).get("chats", [])
+#     except toml.TomlDecodeError as e:
+#         print(f"Error al cargar el archivo TOML: {e}")
+#         chats_recientes = []  # Cargar una lista vacía en caso de error
+#
+#     list_widget.clear()
+#
+#     for chat in chats_recientes:
+#         item = QListWidgetItem()
+#         chat_widget = RecentChatWidget(
+#             chat["ip"],
+#             chat["port"],
+#             chat["last_connection"],
+#             main_window
+#         )
+#         item.setSizeHint(chat_widget.sizeHint())
+#         list_widget.addItem(item)
+#         list_widget.setItemWidget(item, chat_widget)
 
-    # Agregar cada chat reciente a la lista
-    for chat in chats_recientes:
-        # Crear un QListWidgetItem
-        item = QListWidgetItem()
-        # Crear el widget personalizado
-        chat_widget = RecentChatWidget(
-            chat["ip"],
-            chat["port"],
-            chat["last_connection"]
-        )
-        # Establecer el tamaño del item basado en el widget
-        item.setSizeHint(chat_widget.sizeHint())
-        # Agregar el item a la lista
-        list_widget.addItem(item)
-        # Establecer el widget para el item
-        list_widget.setItemWidget(item, chat_widget)

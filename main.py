@@ -10,7 +10,7 @@ from PySide6.QtCore import QFile, QTextStream, Signal, QObject
 from ui.PaginaPrincipal import Ui_MainWindow
 from ui.PeticionEntrante import Ui_IncomingRequest
 from widgets.VentanaChat import VentanaChat
-from widgets.chats_recientes import load_recent_chats
+from widgets.chats_recientes import RecentChatWidget
 from widgets.peticionHandler import PeticionHandler
 
 CONFIG_FILE = "config.toml"
@@ -48,7 +48,7 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_2.clicked.connect(self.enviar_solicitud_conexion)
 
         # Cargar chats recientes
-        load_recent_chats(self.ui.listWidget_2)
+        self.load_recent_chats(self.ui.listWidget_2)
 
     def iniciar_servidor(self, puerto_inicial):
         """Inicia el servidor automáticamente al abrir la aplicación."""
@@ -83,6 +83,7 @@ class MainWindow(QMainWindow):
             # Enviar solicitud de conexión
             success, socket = self.request_handler.enviar_solicitud_conexion(ip_destino, puerto_destino)
             if success:
+                self.guardar_chat_reciente(ip_destino, puerto_destino)
                 self._conectar_chat(socket)
             else:
                 self._cancelar_solicitud()
@@ -179,6 +180,64 @@ class MainWindow(QMainWindow):
         except Exception as e:
             print(f"Error al agregar solicitud a la lista: {e}")
 
+
+    def guardar_chat_reciente(self, ip, puerto):
+        try:
+            chats = {"chats": []}
+            if os.path.exists("chats.toml"):
+                with open("chats.toml", "r") as f:
+                    chats = toml.load(f)
+
+            nuevo_chat = {
+                "ip": ip,
+                "port": str(puerto),
+                "last_connection": "Ahora"
+            }
+
+            if "chats" not in chats:
+                chats["chats"] = []
+
+            chats["chats"].insert(0, nuevo_chat)
+
+            with open("chats.toml", "w") as f:
+                toml.dump(chats, f)
+
+            # Actualizar lista de chats recientes
+            load_recent_chats(self.ui.listWidget_2)
+
+        except Exception as e:
+            print(f"Error al guardar chat: {e}")
+
+    def load_recent_chats(self,list_widget):
+        """Función para cargar los chats recientes en cualquier QListWidget"""
+        archivo_chats = "chats.toml"
+
+        # Verificar si el archivo existe
+        if not os.path.exists(archivo_chats):
+            print(f"Archivo {archivo_chats} no encontrado. Creando un archivo vacío...")
+            with open(archivo_chats, "w") as f:
+                toml.dump({"chats": []}, f)
+
+        try:
+            # Intentar cargar el archivo
+            chats_recientes = toml.load(archivo_chats).get("chats", [])
+        except toml.TomlDecodeError as e:
+            print(f"Error al cargar el archivo TOML: {e}")
+            chats_recientes = []  # Cargar una lista vacía en caso de error
+
+        list_widget.clear()
+
+        for chat in chats_recientes:
+            item = QListWidgetItem()
+            chat_widget = RecentChatWidget(
+                chat["ip"],
+                chat["port"],
+                chat["last_connection"],
+                self  # Pasar la referencia de MainWindow
+            )
+            item.setSizeHint(chat_widget.sizeHint())
+            list_widget.addItem(item)
+            list_widget.setItemWidget(item, chat_widget)
 
 
 if __name__ == '__main__':

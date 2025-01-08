@@ -29,11 +29,9 @@ class Ui_RecentChat(object):
         self.profilePic.setMinimumSize(QSize(50, 50))
         self.profilePic.setMaximumSize(QSize(50, 50))
         self.profilePic.setStyleSheet("""
-            QLabel#profilePic {
                 background-color: transparent;
                 border: none;
                 padding: 0;
-            }
         """)
         icon = QPixmap("res/cuenta.svg")
         scaled_icon = icon.scaled(50, 50, Qt.AspectRatioMode.KeepAspectRatio,
@@ -64,8 +62,24 @@ class Ui_RecentChat(object):
 
         self.connectButton = QPushButton(RecentChat)
         self.connectButton.setObjectName(u"connectButton")
-        self.connectButton.setMaximumSize(QSize(60, 25))
-        self.connectButton.setStyleSheet(u"background-color: #2196F3; color: white;")
+
+        # Ajustar el tamaño del botón
+        self.connectButton.setMinimumSize(QSize(70, 30))
+        self.connectButton.setMaximumSize(QSize(100, 30))  # Opcional, para evitar que sea demasiado grande
+
+        # Configurar estilo del botón
+        self.connectButton.setStyleSheet("""
+            background-color: #2196F3; 
+            color: white; 
+            border: none; 
+            padding: 5px 10px;
+            border-radius: 5px;  /* Opcional: bordes redondeados */
+        """)
+
+        # Ajustar la fuente
+        font = QFont()
+        font.setPointSize(10)
+        self.connectButton.setFont(font)
 
         self.horizontalLayout.addWidget(self.connectButton)
 

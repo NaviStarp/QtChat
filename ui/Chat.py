@@ -48,6 +48,7 @@ class Ui_MainWindow(object):
 
         self.ListaMensajes = QListWidget(self.centralwidget)
         self.ListaMensajes.setObjectName(u"ListaMensajes")
+        self.ListaMensajes.setFocusPolicy(Qt.NoFocus)
 
         self.verticalLayout.addWidget(self.ListaMensajes)
 

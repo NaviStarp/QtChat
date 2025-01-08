@@ -26,7 +26,19 @@ class Ui_IncomingRequest(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.profilePic = QLabel(IncomingRequest)
         self.profilePic.setObjectName(u"profilePic")
+        iconoEscalado = QPixmap(":/res/cuenta.svg").scaled(40, 40, Qt.AspectRatioMode.KeepAspectRatio,
+                                                           Qt.TransformationMode.SmoothTransformation)
+        self.profilePic.setPixmap(iconoEscalado)
+        self.profilePic.setStyleSheet("""
+             QLabel#profilePic {
+                 background-color: transparent;
+                 border: none;
+                 padding: 0;
+             }
+         """)
+
         self.profilePic.setMinimumSize(QSize(40, 40))
+        self.profilePic.setMaximumSize(QSize(40,40))
         self.profilePic.setStyleSheet(u"border-radius: 20px; background-color: #e0e0e0;")
 
         self.horizontalLayout.addWidget(self.profilePic)
